@@ -196,7 +196,7 @@ public class CqlEvaluatorBuilder {
      * uses FILO semantics. The first RetrieveProvider added is the last to be used
      * for retrieves.
      * 
-     * @param dataProviderComponents the model with a uri, <odelResolver, and RetrieveProvider
+     * @param dataProviderComponents the model with a uri, ModelResolver, and RetrieveProvider
      * @return this CqlEvaluatorBuilder
      */
     public CqlEvaluatorBuilder withDataProviderComponents(

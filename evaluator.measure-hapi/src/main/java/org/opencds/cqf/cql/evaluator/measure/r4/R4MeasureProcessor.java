@@ -7,13 +7,10 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ForkJoinPool;
-import java.util.concurrent.ThreadPoolExecutor;
 
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import org.apache.commons.collections.ListUtils;
 import org.cqframework.cql.cql2elm.CqlTranslatorOptions;
 import org.cqframework.cql.cql2elm.model.Model;
 import org.cqframework.cql.elm.execution.Library;
@@ -54,7 +51,6 @@ import org.opencds.cqf.cql.evaluator.fhir.dal.FhirDal;
 import org.opencds.cqf.cql.evaluator.measure.MeasureEvalConfig;
 import org.opencds.cqf.cql.evaluator.measure.common.MeasureEvalType;
 import org.opencds.cqf.cql.evaluator.measure.common.MeasureProcessor;
-import org.opencds.cqf.cql.evaluator.measure.common.MeasureReportAggregator;
 import org.opencds.cqf.cql.evaluator.measure.common.MeasureReportType;
 import org.opencds.cqf.cql.evaluator.measure.common.SubjectProvider;
 import org.opencds.cqf.cql.evaluator.measure.helper.DateHelper;
@@ -195,7 +191,9 @@ public class R4MeasureProcessor implements MeasureProcessor<MeasureReport, Endpo
         List<MeasureReport> reports = new ArrayList<>();
         futures.forEach(x -> reports.add(x.join()));
 
-        return reports.get(0);
+        R4MeasureReportAggregator reportAggregator = new R4MeasureReportAggregator();
+
+        return reportAggregator.aggregate(reports);
     }
 
     public static <T> List<List<T>> getBatches(List<T> collection,int batchSize){
