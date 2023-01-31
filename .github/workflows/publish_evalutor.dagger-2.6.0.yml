@@ -6,6 +6,9 @@ on:
 jobs:
   build:
     runs-on: [self-hosted,services]
+    env:
+      POOL_NAME: services
+      AWS_ACCOUNT: 856965016623
 
     steps:
     - name: Checkout Code
