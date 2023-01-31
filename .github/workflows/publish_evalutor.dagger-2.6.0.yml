@@ -5,7 +5,7 @@ on:
 
 jobs:
   build:
-    runs-on: [self-hosted,services]
+    runs-on: [self-hosted,main]
     env:
       POOL_NAME: services
       AWS_ACCOUNT: 856965016623
